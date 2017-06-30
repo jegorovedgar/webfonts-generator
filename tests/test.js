@@ -140,6 +140,39 @@ describe('webfont', function() {
 		})
 	})
 
+	it('generates the same hash even when different "dest" is passed as an option', function(done) {
+		var getHash = function (dest) {
+			var cssFile = path.join(dest, FONT_NAME + '.css')
+			var css = fs.readFileSync(cssFile, {
+				encoding: 'UTF-8'
+			})
+			return css.match('.*' + FONT_NAME + '\\.\\w+\\?([\\da-f]{32}).*')[1]
+		}
+
+		var dest = DEST + 'some'
+		var options = _.extend({}, OPTIONS, {
+			dest: dest
+		})
+		webfontsGenerator(options, function(err) {
+			if (err) return done(new Error(err))
+
+			var hash = getHash(dest);
+
+			dest = DEST + 'other'
+			options = _.extend({}, OPTIONS, {
+				dest: dest
+			})
+			webfontsGenerator(options, function(err) {
+				if (err) return done(new Error(err))
+
+				var newHash = getHash(dest);
+
+				assert(hash === newHash)
+				done(null)
+			})
+		})
+	})
+
 	describe('custom templates', function() {
 		var TEMPLATE = path.join(__dirname, 'customTemplate.hbs')
 		var TEMPLATE_OPTIONS = {
