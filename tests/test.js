@@ -6,7 +6,7 @@ var assert = require('assert')
 var sass = require('node-sass')
 var Q = require('q')
 var readChunk = require('read-chunk')
-var getFileType = require('file-type')
+var FileType = require('file-type')
 
 var webfontsGenerator = require('../src/index')
 
@@ -36,7 +36,7 @@ describe('webfont', function() {
 	})
 
 	it('generates all fonts and css files', function(done) {
-		webfontsGenerator(OPTIONS, function(err) {
+		webfontsGenerator(OPTIONS, async function(err) {
 			if (err) return done(err)
 
 			var destFiles = fs.readdirSync(DEST)
@@ -50,7 +50,7 @@ describe('webfont', function() {
 				var DETECTABLE = ['ttf', 'woff', 'woff2', 'eot']
 				if (_.contains(DETECTABLE, type)) {
 					var chunk = readChunk.sync(filepath, 0, 262)
-					var filetype = getFileType(chunk)
+					var filetype = await FileType.fromBuffer(chunk)
 					assert.equal(type, filetype && filetype.ext, 'ttf filetype is correct')
 				}
 			}
