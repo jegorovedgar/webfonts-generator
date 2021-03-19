@@ -175,6 +175,45 @@ describe('webfont', function() {
 		})
 	})
 
+	describe('custom context', function() {
+		var TEMPLATE = path.join(__dirname, 'customContextTemplate.hbs')
+		var TEMPLATE_OPTIONS = {
+			option: 'TEST'
+		}
+		it('uses custom html context', function (done) {
+			var options = _.extend({}, OPTIONS, {
+				html: true,
+				htmlTemplate: TEMPLATE,
+				templateOptions: TEMPLATE_OPTIONS,
+				htmlContext: function (context) {
+					context.hello = 'world'
+				},
+			})
+			webfontsGenerator(options, function (err) {
+				if (err) return done(err)
+				var htmlFile = fs.readFileSync(path.join(DEST, FONT_NAME + '.html'), 'utf8')
+				assert.equal(htmlFile, 'world')
+				done(null)
+			})
+		});
+
+		it('uses custom css context', function (done) {
+			var options = _.extend({}, OPTIONS, {
+				cssTemplate: TEMPLATE,
+				templateOptions: TEMPLATE_OPTIONS,
+				cssContext: function (context) {
+					context.hello = 'world'
+				},
+			})
+			webfontsGenerator(options, function (err) {
+				if (err) return done(err)
+				var cssFile = fs.readFileSync(path.join(DEST, FONT_NAME + '.css'), 'utf8')
+				assert.equal(cssFile, 'world')
+				done(null)
+			})
+		})
+	});
+
 	describe('scss template', function() {
 		var TEST_SCSS_SINGLE = path.join(__dirname, 'scss', 'singleFont.scss')
 		var TEST_SCSS_MULTIPLE = path.join(__dirname, 'scss', 'multipleFonts.scss')
