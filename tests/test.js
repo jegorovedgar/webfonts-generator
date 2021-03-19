@@ -66,7 +66,7 @@ describe('webfont', function() {
 		})
 	})
 
-	it('returns object with fonts and function generateCss()', function() {
+	it('returns object with fonts and functions generateCss(), generateHtml()', function() {
 		webfontsGenerator(OPTIONS, function(err, result) {
 			assert(result.svg)
 			assert(result.ttf)
@@ -74,6 +74,10 @@ describe('webfont', function() {
 			assert.equal(typeof result.generateCss, 'function')
 			var css = result.generateCss()
 			assert.equal(typeof css, 'string')
+
+			assert.equal(typeof result.generateHtml, 'function')
+			var html = result.generateHtml()
+			assert.equal(typeof html, 'string')
 		})
 	})
 
