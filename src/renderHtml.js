@@ -23,8 +23,14 @@ var renderHtml = function(options) {
 	var ctx = _.extend({
 		names: options.names,
 		fontName: options.fontName,
-		styles: styles
+		styles: styles,
+		codepoints: options.codepoints,
 	}, options.templateOptions)
+
+	if (typeof options.htmlContext == 'function') {
+		options.htmlContext(ctx, options, handlebars);
+	}
+
 	return template(ctx)
 }
 

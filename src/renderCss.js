@@ -68,6 +68,11 @@ var renderCss = function(options, urls) {
 	var ctx = makeCtx(options, urls)
 	var source = fs.readFileSync(options.cssTemplate, 'utf8')
 	var template = handlebars.compile(source)
+
+	if (typeof options.cssContext == 'function') {
+		options.cssContext(ctx, options, handlebars);
+	}
+
 	return template(ctx)
 }
 

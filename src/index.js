@@ -24,8 +24,10 @@ var DEFAULT_OPTIONS = {
 	fontName: 'iconfont',
 	css: true,
 	cssTemplate: TEMPLATES.css,
+	cssContext: function(context, options, handlebars) {},
 	html: false,
 	htmlTemplate: TEMPLATES.html,
+	htmlContext: function(context, options, handlebars) {},
 	types: ['eot', 'woff', 'woff2'],
 	order: ['eot', 'woff2', 'woff', 'ttf', 'svg'],
 	rename: function(file) {
