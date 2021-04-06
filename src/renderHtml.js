@@ -9,7 +9,7 @@ handlebars.registerHelper('removePeriods', function (selector) {
 	return selector.replace(/\./, '');
 });
 
-var renderHtml = function(options) {
+var renderHtml = function(options, urls) {
 	var source = fs.readFileSync(options.htmlTemplate, 'utf8')
 	var template = handlebars.compile(source)
 
@@ -18,7 +18,7 @@ var renderHtml = function(options) {
 	// have path to fonts that is relative to html file location.
 	var styles = renderCss(_.extend({}, options, {
 		cssFontPath: htmlFontsPath
-	}))
+	}), urls)
 
 	var ctx = _.extend({
 		names: options.names,
