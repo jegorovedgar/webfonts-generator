@@ -102,8 +102,8 @@ var webfont = function(options, done) {
 		.then(function(result) {
 			if (options.writeFiles) writeResult(result, options)
 
-			result.generateHtml = function() {
-				return renderHtml(options)
+			result.generateHtml = function(urls) {
+				return renderHtml(options, urls)
 			}
 
 			result.generateCss = function(urls) {
