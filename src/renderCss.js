@@ -11,6 +11,11 @@ var calcHash = function(options) {
 	options.files.forEach(function(file) {
 		hash.update(fs.readFileSync(file, 'utf8'))
 	})
+	options = _.extend({}, options, {
+		dest: null,
+		htmlDest: null,
+		cssDest: null
+	})
 	hash.update(JSON.stringify(options))
 	return hash.digest('hex')
 }
