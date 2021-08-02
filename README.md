@@ -14,7 +14,7 @@ Features:
 ## Install
 
 ```
-npm install --save-dev vusion-webfonts-generator
+npm install --save-dev @vusion/webfonts-generator
 ```
 
 ## Usage
