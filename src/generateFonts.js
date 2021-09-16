@@ -112,7 +112,7 @@ var generators = {
 		deps: ['ttf'],
 		fn: function(options, ttfFont, done) {
 			var font = ttf2eot(new Uint8Array(ttfFont), options.formatOptions['eot'])
-			font = new Buffer(font.buffer)
+			font = new Buffer(font)
 			done(null, font)
 		}
 	}
