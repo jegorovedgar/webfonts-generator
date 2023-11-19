@@ -1,5 +1,4 @@
 var fs = require('fs')
-var path = require('path')
 var crypto = require('crypto')
 var _ = require('underscore')
 var handlebars = require('handlebars')
